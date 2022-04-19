@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SandmanAlarm</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="plus">+</string>
+    <string name="monday_shorthand">M</string>
+    <string name="tuesday_shorthand">T</string>
+    <string name="wednesday_shorthand">W</string>
+    <string name="thursday_shorthand">TH</string>
+    <string name="friday_shorthand">F</string>
+    <string name="saturday_shorthand">S</string>
+    <string name="sunday_shorthand">SUN</string>
+    <string name="every_day">Every Day</string>
+    <string name="alarm_type">Alarm Type</string>
+</resources>
