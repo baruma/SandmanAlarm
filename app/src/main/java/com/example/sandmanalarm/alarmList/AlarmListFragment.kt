@@ -10,10 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sandmanalarm.databinding.AlarmListFragmentBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AlarmListFragment : Fragment() {
 
-    private lateinit var alarmListViewModel: AlarmListViewModel
+    private val alarmListViewModel: AlarmListViewModel by viewModel()
     private var _binding: AlarmListFragmentBinding? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: AlarmListAdapter
@@ -25,9 +26,8 @@ class AlarmListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        alarmListViewModel =
-            ViewModelProvider(this)[AlarmListViewModel::class.java]
+//        alarmListViewModel=
+//            ViewModelProvider(this)[AlarmListViewModel::class.java]
 
         _binding = AlarmListFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root

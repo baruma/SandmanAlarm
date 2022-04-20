@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.sandmanalarm.alarmList.AlarmListAdapter
 import com.example.sandmanalarm.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
