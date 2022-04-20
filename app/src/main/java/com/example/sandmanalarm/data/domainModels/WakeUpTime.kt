@@ -1,4 +1,4 @@
-package com.example.sandmanalarm.data
+package com.example.sandmanalarm.data.domainModels
 
 class WakeUpTime {
     private val hour = Int

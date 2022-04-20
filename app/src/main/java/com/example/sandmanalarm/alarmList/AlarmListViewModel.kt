@@ -3,7 +3,7 @@ package com.example.sandmanalarm.alarmList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sandmanalarm.data.Alarm
+import com.example.sandmanalarm.data.domainModels.Alarm
 
 class AlarmListViewModel : ViewModel() {
 

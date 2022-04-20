@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandmanalarm.R
-import com.example.sandmanalarm.data.Alarm
+import com.example.sandmanalarm.data.domainModels.Alarm
+
 
 // TODO: Continue off of this tutorial for collapsible cell:
 //  https://medium.com/@nikola.jakshic/how-to-expand-collapse-items-in-recyclerview-49a648a403a6
@@ -32,10 +33,10 @@ class AlarmListAdapter(private val dataSet: MutableLiveData<Alarm>) : RecyclerVi
 
         }
 
-//        fun bind(alarm: Alarm) {
-//            val expanded: Boolean = alarm.isExpanded
-//            view.findViewById<View>(R.id.week_linear_layout).visibility = (if (expanded) View.VISIBLE else View.GONE)
-//        }
+        fun bind(alarm: Alarm) {
+            val expanded: Boolean = alarm.isExpanded
+            view.findViewById<View>(R.id.week_linear_layout).visibility = (if (expanded) View.VISIBLE else View.GONE)
+        }
 
     }
 
@@ -47,14 +48,7 @@ class AlarmListAdapter(private val dataSet: MutableLiveData<Alarm>) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: AlarmItemViewHolder, position: Int) {
-//        val alarmList: ArrayList<Alarm>
-//        val movie: Alarm = alarmList.get(position)
-//        holder.bind(movie)
-//        holder.itemView.setOnClickListener { v ->
-//            val expanded: Boolean = movie.isExpanded
-//            movie.isExpanded = (!expanded)
-//            notifyItemChanged(position)
-//        }
+
     }
 
     override fun getItemCount() = 10
