@@ -5,7 +5,6 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandmanalarm.R
 import com.example.sandmanalarm.data.domainModels.Alarm
@@ -14,11 +13,13 @@ import com.example.sandmanalarm.data.domainModels.Alarm
 // TODO: Continue off of this tutorial for collapsible cell:
 //  https://medium.com/@nikola.jakshic/how-to-expand-collapse-items-in-recyclerview-49a648a403a6
 
-class AlarmListAdapter(private val dataSet: MutableLiveData<Alarm>) : RecyclerView.Adapter<AlarmListAdapter.AlarmItemViewHolder>() {
+class AlarmListAdapter : RecyclerView.Adapter<AlarmListAdapter.AlarmItemViewHolder>() {
 
     // Viewholders aren't views.  You are redirecting the view being passed in to register the onClick
     // the viewholder will always have a view since it's declared with a constructor that has a view
     // you can route the onclicklistener from the view to the viewholder in the init.
+
+    private var alarms: MutableList<Alarm> = mutableListOf()
 
     class AlarmItemViewHolder(view: View) : RecyclerView.ViewHolder(view), OnClickListener {
         private var view: View = view
@@ -47,9 +48,17 @@ class AlarmListAdapter(private val dataSet: MutableLiveData<Alarm>) : RecyclerVi
         return AlarmItemViewHolder(view)
     }
 
+    /* To update the recycler and add a new alarm, this is the code that will be called again by the
+    "notifyItemInserted" to go through adapter code again and make change as necessary.
+     */
     override fun onBindViewHolder(holder: AlarmItemViewHolder, position: Int) {
-
+        val alarm = getItemId(position)
     }
 
-    override fun getItemCount() = 10
+    fun addNewAlarm(alarm: Alarm) {
+        alarms.add(alarm)
+        this.notifyItemInserted(alarms.size - 1)
+    }
+
+    override fun getItemCount() = alarms.count()
 }

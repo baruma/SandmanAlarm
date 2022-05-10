@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.sandmanalarm.data.entities.AlarmEntity
 
-@Database(entities = [AlarmEntity :: class], version = 0, exportSchema = false)
+@Database(entities = [AlarmEntity :: class], version = 1, exportSchema = false)
+@TypeConverters(Mapper::class)
 abstract class AlarmDatabase: RoomDatabase() {
 
     abstract val alarmDAO: AlarmDAO

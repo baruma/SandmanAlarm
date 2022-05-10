@@ -7,8 +7,12 @@ class AlarmRepository (private val database: AlarmDatabase, private val alarm: A
     were just declared.  It has access to the database which houses the DAOs which houses the means of
     manipulating data.
 
-    The ViewModel that will be implementing this Repository has access to the DAO functions and can load
+    The ViewModel can implement this Repository has access to the DAO functions and can load
     data into our view as needed.
+
+    This repository isn't in use because the database implements the DAO.
+
+    Repositories are better used if there are multiple databases / entity types.
     */
 
     suspend fun loadAlarms(): List<AlarmEntity> {

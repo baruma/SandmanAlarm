@@ -1,7 +1,10 @@
 package com.example.sandmanalarm.data.domainModels
 
 data class Alarm(
-    val wakeUpTime: WakeUpTime,
-    val wakeUpMethod: WakeUpMethod,
+    val wakeUpTime: Float,
+//    val wakeUpMethod: WakeUpMethod,
     val hoursOfSleep: Int,
-    var isExpanded: Boolean)
+    val days: Day,
+    var isExpanded: Boolean,
+    val vibration: Boolean,
+    val sound: Boolean)

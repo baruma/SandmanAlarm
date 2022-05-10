@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CodeReadingNote">
+    <topics>
+      <topic>
+        <name>RecyclerViews</name>
+        <note>Viewholders aren't views.  You are redirecting the view being passed in to register the onClick 
+    the viewholder will always have a view since it's declared with a constructor that has a view you can route the onclicklistener from the view to the viewholder in the init.</note>
+        <updatedAt>2022-04-28 09:07:34</updatedAt>
+        <topicLines />
+      </topic>
+      <topic>
+        <name>Database</name>
+        <note />
+        <updatedAt>2022-04-27 11:15:02</updatedAt>
+        <topicLines />
+      </topic>
+    </topics>
+    <state lastExportDir="" lastImportDir="" />
+  </component>
+</project>
