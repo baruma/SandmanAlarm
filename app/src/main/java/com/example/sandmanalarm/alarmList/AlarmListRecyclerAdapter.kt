@@ -5,6 +5,8 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandmanalarm.R
 import com.example.sandmanalarm.data.domainModels.Alarm
@@ -13,16 +15,22 @@ import com.example.sandmanalarm.data.domainModels.Alarm
 // TODO: Continue off of this tutorial for collapsible cell:
 //  https://medium.com/@nikola.jakshic/how-to-expand-collapse-items-in-recyclerview-49a648a403a6
 
-class AlarmListAdapter : RecyclerView.Adapter<AlarmListAdapter.AlarmItemViewHolder>() {
+//@BindingAdapter("fishList")
+//fun bindRecyclerView(recyclerView: RecyclerView, listOfFish: List<Fish>?) {
+//    val adapter = recyclerView.adapter as FishRecyclerAdapter
+//    adapter.submitList(listOfFish)
+//}
+class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapter, RecyclerView.Adapter<AlarmListRecyclerAdapter.AlarmItemViewHolder>() {
 
     // Viewholders aren't views.  You are redirecting the view being passed in to register the onClick
     // the viewholder will always have a view since it's declared with a constructor that has a view
     // you can route the onclicklistener from the view to the viewholder in the init.
 
-    private var alarms: MutableList<Alarm> = mutableListOf()
+    var alarms: MutableList<Alarm> = mutableListOf()
 
-    class AlarmItemViewHolder(view: View) : RecyclerView.ViewHolder(view), OnClickListener {
-        private var view: View = view
+    val alarmRemovedLiveData = MutableLiveData<Alarm>()
+
+    class AlarmItemViewHolder(private var view: View) : RecyclerView.ViewHolder(view), OnClickListener {
         val textView: TextView
 
         init {
@@ -38,7 +46,6 @@ class AlarmListAdapter : RecyclerView.Adapter<AlarmListAdapter.AlarmItemViewHold
             val expanded: Boolean = alarm.isExpanded
             view.findViewById<View>(R.id.week_linear_layout).visibility = (if (expanded) View.VISIBLE else View.GONE)
         }
-
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlarmItemViewHolder {
@@ -60,5 +67,20 @@ class AlarmListAdapter : RecyclerView.Adapter<AlarmListAdapter.AlarmItemViewHold
         this.notifyItemInserted(alarms.size - 1)
     }
 
+    fun loadAlarms() {
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount() = alarms.count()
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        return false
+    }
+
+    override fun onItemDismiss(position: Int) {
+        alarmRemovedLiveData.postValue(alarms[position])
+        alarms.removeAt(position)
+        notifyItemRemoved(position)
+        this.onSwiped()
+    }
 }

@@ -1,13 +1,14 @@
 package com.example.sandmanalarm.alarmList
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sandmanalarm.IdGenerator
 import com.example.sandmanalarm.data.domainModels.Alarm
 import com.example.sandmanalarm.data.domainModels.Day
 import com.example.sandmanalarm.databinding.AlarmListFragmentBinding
@@ -18,7 +19,8 @@ class AlarmListFragment : Fragment() {
     private val alarmListViewModel: AlarmListViewModel by viewModel()
     private var _binding: AlarmListFragmentBinding? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var adapter: AlarmListAdapter
+    private lateinit var recyclerAdapter: AlarmListRecyclerAdapter
+    private var mItemTouchHelper: ItemTouchHelper? = null
 
     private val binding get() = _binding!!
     val viewModel: AlarmListViewModel by viewModel()
@@ -35,17 +37,26 @@ class AlarmListFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(requireContext())
         binding.alertsRecyclerView.layoutManager = linearLayoutManager
 
-        // Adapter Hook-Up
-        adapter = AlarmListAdapter()
-        binding.alertsRecyclerView.adapter = adapter
+        recyclerAdapter = AlarmListRecyclerAdapter {}  // Null
+        binding.alertsRecyclerView.adapter = recyclerAdapter // No longer Null
+
+        loadAlarms()
+        setUpSwipeToDelete()  // Once the user swipes, call upon the deleteAlarm - but where do you get the alarm to delete
 
         // Observers
         val newAlarmObserver = Observer<Alarm> { alarm ->
             // Called to update the viewholder. Viewholder code is handled by the Adapter.
-            adapter.addNewAlarm(alarm)
+            recyclerAdapter.addNewAlarm(alarm)
         }
+
         // Observer Connections to ViewModel
-        viewModel.newAlarm.observe(viewLifecycleOwner, newAlarmObserver)
+        viewModel.newAlarmLiveData.observe(viewLifecycleOwner, newAlarmObserver)
+
+        val alarmRemovedListener = Observer<Alarm> { alarm ->
+            deleteAlarm(alarm)
+        }
+
+        recyclerAdapter.alarmRemovedLiveData.observe(viewLifecycleOwner, alarmRemovedListener)
 
         return root
     }
@@ -64,10 +75,21 @@ class AlarmListFragment : Fragment() {
     }
 
     private fun addAlarm() {
-        viewModel.saveAlarm(Alarm(0.0f, 3, Day.MONDAY, false, false, false))
+        viewModel.saveAlarm(Alarm(IdGenerator.create(), 0.0f, 3, Day.MONDAY, false, false, false))
     }
 
     private fun deleteAlarm(alarm: Alarm) {
-        viewModel.deleteAlarm()
+        viewModel.deleteAlarm(alarm)
+    }
+
+    private fun setUpSwipeToDelete() {
+        binding.alertsRecyclerView.adapter = recyclerAdapter
+        val callback: ItemTouchHelper.Callback = SwipeHelperCallback(recyclerAdapter)
+        mItemTouchHelper = ItemTouchHelper(callback)
+        mItemTouchHelper?.attachToRecyclerView(binding.alertsRecyclerView)
+    }
+
+    private fun loadAlarms() {
+        viewModel.loadAlarms()
     }
 }

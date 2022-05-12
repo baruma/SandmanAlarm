@@ -5,21 +5,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sandmanalarm.data.AlarmDatabase
+import com.example.sandmanalarm.data.AlarmRepository
 import com.example.sandmanalarm.data.asDatabaseModel
 import com.example.sandmanalarm.data.domainModels.Alarm
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
-class AlarmListViewModel(private val database: AlarmDatabase, private val dispatcher: CoroutineDispatcher)
-    : ViewModel() {
+class AlarmListViewModel(
+    private val repository: AlarmRepository,
+    private val dispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     /* You need a live data to denote the entire data payload, and the most recently made object
      to add to that payload.
 
      Livedata is strictly used between viewModel and View.
      */
-    var alarms = MutableLiveData<List<Alarm>>()
-    var newAlarm = MutableLiveData<Alarm>()
+    var alarmLiveDataList = MutableLiveData<List<Alarm>>()
+    var newAlarmLiveData = MutableLiveData<Alarm>()
+
+    var alarmList =
+        mutableListOf<Alarm>()  // This is the source of truth since it updates the database by being added to the LiveData list.
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is the Alarm List"
@@ -29,15 +35,28 @@ class AlarmListViewModel(private val database: AlarmDatabase, private val dispat
     fun saveAlarm(alarm: Alarm) {
         viewModelScope.launch(dispatcher) {
             // inserts object into Database
-            database.alarmDAO.insert(alarm.asDatabaseModel())
+//            database.alarmDAO.insert(alarm.asDatabaseModel())
+            repository.saveAlarm(alarm.asDatabaseModel())
             // adds new object into viewModel's object array to update view with.
-            newAlarm.postValue(alarm)
+            alarmList.add(alarm)
+            alarmLiveDataList.postValue(alarmList)
+            newAlarmLiveData.postValue(alarm)
         }
     }
 
     fun deleteAlarm(alarm: Alarm) {
         viewModelScope.launch(dispatcher) {
-            database.alarmDAO.delete(alarm.asDatabaseModel())
+//            database.alarmDAO.delete(alarm.asDatabaseModel())
+            repository.deleteAlarm(alarm.asDatabaseModel())
+            alarmList.remove(alarm)
+            alarmLiveDataList.postValue(alarmList)
+        }
+    }
+
+    fun loadAlarms(): MutableLiveData<List<Alarm>> {
+        viewModelScope.launch(dispatcher) {
+            repository.loadAlarms()
+//            return alarmLiveDataList
         }
     }
 }

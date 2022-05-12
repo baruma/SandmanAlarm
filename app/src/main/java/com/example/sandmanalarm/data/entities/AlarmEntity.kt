@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity (tableName = "alarm_table")
 data class AlarmEntity (
-    @PrimaryKey(autoGenerate = true)
-    val id : Int = 0,
+    @PrimaryKey
+    val id : Long = 0,
     val wakeUpTime: Float,
     val hoursOfSleep: Int,
     val days: Int, // Map this back to the enum

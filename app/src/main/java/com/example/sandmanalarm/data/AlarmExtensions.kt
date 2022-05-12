@@ -8,11 +8,21 @@ import com.example.sandmanalarm.data.entities.AlarmEntity
 // This is an extension function
 fun Alarm.asDatabaseModel(): AlarmEntity {
     //return AlarmEntity(id, wakeUpMethod, hoursOfSleep, days, vibration, sound )
-    return AlarmEntity(wakeUpTime = this.wakeUpTime, hoursOfSleep =this.hoursOfSleep, id = 0, days = this.days.dayOfWeek, vibration = true, sound = true)
+    return AlarmEntity(
+        id, wakeUpTime, hoursOfSleep, days.dayOfWeek, true, true
+    )
 }
 
 fun AlarmEntity.asDomainModel(): Alarm {
-    return Alarm(wakeUpTime = this.wakeUpTime, hoursOfSleep = this.hoursOfSleep, days = Mapper.mapFromDay(0), isExpanded = true, vibration = true, sound = true)
+    return Alarm(
+        id = this.id,
+        wakeUpTime = this.wakeUpTime,
+        hoursOfSleep = this.hoursOfSleep,
+        days = Mapper.mapFromDay(0),
+        isExpanded = true,
+        vibration = true,
+        sound = true
+    )
 }
 
 object Mapper {
