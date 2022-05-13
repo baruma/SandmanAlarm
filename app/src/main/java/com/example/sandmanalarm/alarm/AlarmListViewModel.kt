@@ -1,13 +1,13 @@
-package com.example.sandmanalarm.alarmList
+package com.example.sandmanalarm.alarm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sandmanalarm.data.AlarmDatabase
-import com.example.sandmanalarm.data.AlarmRepository
-import com.example.sandmanalarm.data.asDatabaseModel
-import com.example.sandmanalarm.data.domainModels.Alarm
+import com.example.sandmanalarm.data.data_alarm.AlarmRepository
+import com.example.sandmanalarm.data.data_alarm.asDatabaseModel
+import com.example.sandmanalarm.data.data_alarm.asDomainModel
+import com.example.sandmanalarm.data.data_alarm.domainModels.Alarm
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
@@ -39,7 +39,8 @@ class AlarmListViewModel(
             repository.saveAlarm(alarm.asDatabaseModel())
             // adds new object into viewModel's object array to update view with.
             alarmList.add(alarm)
-            alarmLiveDataList.postValue(alarmList)
+            // LEARNING NOTE - Having two postValue's below will cause multiple additions to your recycler
+//            alarmLiveDataList.postValue(alarmList)
             newAlarmLiveData.postValue(alarm)
         }
     }
@@ -53,10 +54,11 @@ class AlarmListViewModel(
         }
     }
 
-    fun loadAlarms(): MutableLiveData<List<Alarm>> {
+    fun loadAlarms() {
         viewModelScope.launch(dispatcher) {
-            repository.loadAlarms()
-//            return alarmLiveDataList
+            alarmList.clear()
+            alarmList.addAll(repository.loadAlarms().map { it.asDomainModel() })
+            alarmLiveDataList.postValue(alarmList)
         }
     }
 }

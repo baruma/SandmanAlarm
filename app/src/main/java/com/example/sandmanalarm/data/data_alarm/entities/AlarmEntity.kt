@@ -1,4 +1,4 @@
-package com.example.sandmanalarm.data.entities
+package com.example.sandmanalarm.data.data_alarm.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

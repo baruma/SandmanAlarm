@@ -2,6 +2,7 @@ package com.example.sandmanalarm.data
 
 import android.content.Context
 import androidx.room.Room
+import com.example.sandmanalarm.data.data_alarm.AlarmDatabase
 
 /**
  * Singleton class that is used to create a reminder db

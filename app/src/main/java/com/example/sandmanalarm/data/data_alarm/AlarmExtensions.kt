@@ -1,9 +1,9 @@
-package com.example.sandmanalarm.data
+package com.example.sandmanalarm.data.data_alarm
 
 import androidx.room.TypeConverter
-import com.example.sandmanalarm.data.domainModels.Alarm
-import com.example.sandmanalarm.data.domainModels.Day
-import com.example.sandmanalarm.data.entities.AlarmEntity
+import com.example.sandmanalarm.data.data_alarm.domainModels.Alarm
+import com.example.sandmanalarm.data.data_alarm.domainModels.Day
+import com.example.sandmanalarm.data.data_alarm.entities.AlarmEntity
 
 // This is an extension function
 fun Alarm.asDatabaseModel(): AlarmEntity {
@@ -18,7 +18,7 @@ fun AlarmEntity.asDomainModel(): Alarm {
         id = this.id,
         wakeUpTime = this.wakeUpTime,
         hoursOfSleep = this.hoursOfSleep,
-        days = Mapper.mapFromDay(0),
+        days = com.example.sandmanalarm.data.data_alarm.Mapper.mapFromDay(0),
         isExpanded = true,
         vibration = true,
         sound = true

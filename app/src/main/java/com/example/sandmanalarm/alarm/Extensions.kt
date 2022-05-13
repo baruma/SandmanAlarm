@@ -1,4 +1,4 @@
-package com.example.sandmanalarm.alarmList
+package com.example.sandmanalarm.alarm
 
 import android.view.LayoutInflater
 import android.view.View

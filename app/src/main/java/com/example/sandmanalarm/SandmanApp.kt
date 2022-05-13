@@ -1,9 +1,9 @@
 package com.example.sandmanalarm
 
 import android.app.Application
-import com.example.sandmanalarm.alarmList.AlarmListViewModel
-import com.example.sandmanalarm.data.AlarmDatabase
-import com.example.sandmanalarm.data.AlarmRepository
+import com.example.sandmanalarm.alarm.AlarmListViewModel
+import com.example.sandmanalarm.data.data_alarm.AlarmDatabase
+import com.example.sandmanalarm.data.data_alarm.AlarmRepository
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -26,6 +26,6 @@ class SandmanApp : Application() {
     val mainModule = module {
         viewModel { AlarmListViewModel(get(), Dispatchers.IO) }
         single { AlarmDatabase.getDatabase(this@SandmanApp) }
-        single {AlarmRepository(get())}
+        single { AlarmRepository(get()) }
     }
 }

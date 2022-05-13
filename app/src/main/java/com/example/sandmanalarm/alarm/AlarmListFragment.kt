@@ -1,5 +1,7 @@
-package com.example.sandmanalarm.alarmList
+package com.example.sandmanalarm.alarm
 
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sandmanalarm.IdGenerator
-import com.example.sandmanalarm.data.domainModels.Alarm
-import com.example.sandmanalarm.data.domainModels.Day
+import com.example.sandmanalarm.data.data_alarm.domainModels.Alarm
+import com.example.sandmanalarm.data.data_alarm.domainModels.Day
 import com.example.sandmanalarm.databinding.AlarmListFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,6 +24,9 @@ class AlarmListFragment : Fragment() {
     private lateinit var recyclerAdapter: AlarmListRecyclerAdapter
     private var mItemTouchHelper: ItemTouchHelper? = null
 
+    var hour = 0
+    var minute = 0
+
     private val binding get() = _binding!!
     val viewModel: AlarmListViewModel by viewModel()
 
@@ -32,6 +37,7 @@ class AlarmListFragment : Fragment() {
     ): View {
 
         _binding = AlarmListFragmentBinding.inflate(inflater, container, false)
+
         val root: View = binding.root
 
         linearLayoutManager = LinearLayoutManager(requireContext())
@@ -41,11 +47,10 @@ class AlarmListFragment : Fragment() {
         binding.alertsRecyclerView.adapter = recyclerAdapter // No longer Null
 
         loadAlarms()
-        setUpSwipeToDelete()  // Once the user swipes, call upon the deleteAlarm - but where do you get the alarm to delete
+        setUpSwipeToDelete()
 
         // Observers
         val newAlarmObserver = Observer<Alarm> { alarm ->
-            // Called to update the viewholder. Viewholder code is handled by the Adapter.
             recyclerAdapter.addNewAlarm(alarm)
         }
 
@@ -58,6 +63,12 @@ class AlarmListFragment : Fragment() {
 
         recyclerAdapter.alarmRemovedLiveData.observe(viewLifecycleOwner, alarmRemovedListener)
 
+        val loadAlarmListener = Observer<List<Alarm>> { alarms ->
+            recyclerAdapter.updateAlarms(alarms)
+        }
+
+        viewModel.alarmLiveDataList.observe(viewLifecycleOwner, loadAlarmListener)
+
         return root
     }
 
@@ -65,7 +76,8 @@ class AlarmListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addAlarmButton.setOnClickListener() {
-            addAlarm()
+            //addAlarm()
+            popTimePicker(view)
         }
     }
 
@@ -91,5 +103,20 @@ class AlarmListFragment : Fragment() {
 
     private fun loadAlarms() {
         viewModel.loadAlarms()
+    }
+
+    fun popTimePicker(view: View?) {
+        val onTimeSetListener =
+            OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
+                hour = selectedHour
+                minute = selectedMinute
+               // timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute))
+            }
+
+        // int style = AlertDialog.THEME_HOLO_DARK;
+        val timePickerDialog =
+            TimePickerDialog(context,  /*style,*/onTimeSetListener, hour, minute, true)
+        timePickerDialog.setTitle("Select Time")
+        timePickerDialog.show()
     }
 }

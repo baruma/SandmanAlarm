@@ -1,6 +1,4 @@
-package com.example.sandmanalarm.data.domainModels
-
-import androidx.room.TypeConverter
+package com.example.sandmanalarm.data.data_alarm.domainModels
 
 enum class Day(val dayOfWeek: Int) {
     MONDAY(0),

@@ -1,6 +1,6 @@
-package com.example.sandmanalarm.data
+package com.example.sandmanalarm.data.data_alarm
 
-import com.example.sandmanalarm.data.entities.AlarmEntity
+import com.example.sandmanalarm.data.data_alarm.entities.AlarmEntity
 
 class AlarmRepository (private val database: AlarmDatabase) {
     /*  The repository is kind of like a catch-all.  It implements all the parts of the database that
@@ -11,8 +11,6 @@ class AlarmRepository (private val database: AlarmDatabase) {
     data into our view as needed.
 
     This repository isn't in use because the database implements the DAO.
-
-    Repositories are better used if there are multiple databases / entity types.
     */
 
     suspend fun loadAlarms(): List<AlarmEntity> {

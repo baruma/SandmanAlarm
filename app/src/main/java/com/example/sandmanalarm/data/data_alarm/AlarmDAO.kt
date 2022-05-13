@@ -1,7 +1,7 @@
-package com.example.sandmanalarm.data
+package com.example.sandmanalarm.data.data_alarm
 
 import androidx.room.*
-import com.example.sandmanalarm.data.entities.AlarmEntity
+import com.example.sandmanalarm.data.data_alarm.entities.AlarmEntity
 
 
 @Dao

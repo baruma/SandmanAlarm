@@ -1,15 +1,14 @@
-package com.example.sandmanalarm.alarmList
+package com.example.sandmanalarm.alarm
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandmanalarm.R
-import com.example.sandmanalarm.data.domainModels.Alarm
+import com.example.sandmanalarm.data.data_alarm.domainModels.Alarm
 
 
 // TODO: Continue off of this tutorial for collapsible cell:
@@ -67,7 +66,9 @@ class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapt
         this.notifyItemInserted(alarms.size - 1)
     }
 
-    fun loadAlarms() {
+    fun updateAlarms(newAlarms: List<Alarm>) {
+        alarms.clear()
+        alarms.addAll(newAlarms)
         notifyDataSetChanged()
     }
 

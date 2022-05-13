@@ -1,121 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray_light">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textSize="40sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12:00pm" />
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:id="@+id/week_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/alarm_time"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="71dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@color/gray_light"
-                    android:layout_margin="10dp">
+            <RadioButton
+                android:id="@+id/monday_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/monday_shorthand"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="dp" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/alarm_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="70dp"
-                            android:textAlignment="textStart"
-                            android:textSize="40sp"
-                            android:fontFamily = "sans-serif-medium"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:padding="10dp"
-                            tools:text="12:00pm"/>
+            <RadioButton
+                android:id="@+id/tuesday_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tuesday_shorthand"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="dp" />
 
-                        <LinearLayout
-                            android:id="@+id/week_linear_layout"
-                            app:layout_constraintTop_toBottomOf="@id/alarm_time"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal"
-                            android:layout_margin="5dp"
-                            tools:layout_editor_absoluteX="1dp"
-                            tools:layout_editor_absoluteY="71dp">
+            <RadioButton
+                android:id="@+id/wednesday_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/wednesday_shorthand"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="dp" />
 
-                                <RadioButton
-                                    android:id="@+id/monday_button"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/monday_shorthand"
-                                    tools:layout_editor_absoluteX="12dp"
-                                    tools:layout_editor_absoluteY="dp" />
-                                <RadioButton
-                                    android:id="@+id/tuesday_button"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/tuesday_shorthand"
-                                    tools:layout_editor_absoluteX="12dp"
-                                    tools:layout_editor_absoluteY="dp" />
-                                <RadioButton
-                                    android:id="@+id/wednesday_button"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/wednesday_shorthand"
-                                    tools:layout_editor_absoluteX="12dp"
-                                    tools:layout_editor_absoluteY="dp" />
-                                <RadioButton
-                                    android:id="@+id/thursday_button"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/thursday_shorthand"
-                                    tools:layout_editor_absoluteX="12dp"
-                                    tools:layout_editor_absoluteY="dp" />
-                                <RadioButton
-                                    android:id="@+id/friday_button"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/friday_shorthand"
-                                    tools:layout_editor_absoluteX="12dp"
-                                    tools:layout_editor_absoluteY="dp" />
-                                <RadioButton
-                                    android:id="@+id/saturday_button"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/saturday_shorthand"
-                                    tools:layout_editor_absoluteX="12dp"
-                                    tools:layout_editor_absoluteY="dp" />
-                                <RadioButton
-                                    android:id="@+id/sunday_button"
-                                    android:layout_weight="1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/sunday_shorthand"
-                                    tools:layout_editor_absoluteX="12dp"
-                                    tools:layout_editor_absoluteY="dp" />
-                        </LinearLayout>
+            <RadioButton
+                android:id="@+id/thursday_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/thursday_shorthand"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="dp" />
 
-                        <RadioButton
-                            android:id="@+id/every_day_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="@string/every_day"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/week_linear_layout"/>
+            <RadioButton
+                android:id="@+id/friday_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/friday_shorthand"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="dp" />
 
-                        <Button
-                            android:id="@+id/alarm_type_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/alarm_type"
-                            android:layout_margin="5dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent" />
+            <RadioButton
+                android:id="@+id/saturday_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/saturday_shorthand"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="dp" />
 
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <RadioButton
+                android:id="@+id/sunday_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sunday_shorthand"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="dp" />
         </LinearLayout>
 
-</layout>
+        <RadioButton
+            android:id="@+id/every_day_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="132dp"
+            android:text="@string/every_day"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/week_linear_layout" />
+
+        <Button
+            android:id="@+id/alarm_type_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginEnd="144dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/alarm_type"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
+
