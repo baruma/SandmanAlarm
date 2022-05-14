@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,13 +9,42 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:layout_margin="10dp"
         android:background="@color/gray_light">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/alarm_time"
+        <TextView
+            android:id="@+id/total_sleep_textview"
             android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:text="@string/dummy_hours_of_sleep"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/time_linear_layout"
+            android:layout_margin="10dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+
+            />
+
+        <Switch
+            android:id="@+id/alarm_switch"
+            android:layout_width="70dp"
+            android:layout_height="45dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <LinearLayout
+        android:id="@+id/time_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:weightSum="2"
+        app:layout_constraintTop_toBottomOf="@id/alarm_switch"
+        app:layout_constraintBottom_toTopOf="@id/week_linear_layout">
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sleep_start_time"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="70dp"
             android:fontFamily="sans-serif-medium"
             android:padding="10dp"
@@ -23,15 +53,29 @@
             android:textSize="40sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="12:00pm" />
+            tools:text="10:00pm"/>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sleep_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textSize="40sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5:00am" />
+
+    </LinearLayout>
         <LinearLayout
             android:id="@+id/week_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="5dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/alarm_time"
+            app:layout_constraintTop_toBottomOf="@id/time_linear_layout"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="71dp">
 
@@ -109,16 +153,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/week_linear_layout" />
 
-        <Button
-            android:id="@+id/alarm_type_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginEnd="144dp"
-            android:layout_marginBottom="32dp"
-            android:text="@string/alarm_type"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/wake_up_method_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:weightSum="2"
+            app:layout_constraintTop_toBottomOf="@id/every_day_button">
+
+            <Button
+                android:id="@+id/alarm_sound_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="144dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/sound"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/alarm_vibration_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="144dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/vibration"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

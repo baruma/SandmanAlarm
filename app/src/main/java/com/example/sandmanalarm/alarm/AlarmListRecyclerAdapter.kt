@@ -14,11 +14,6 @@ import com.example.sandmanalarm.data.data_alarm.domainModels.Alarm
 // TODO: Continue off of this tutorial for collapsible cell:
 //  https://medium.com/@nikola.jakshic/how-to-expand-collapse-items-in-recyclerview-49a648a403a6
 
-//@BindingAdapter("fishList")
-//fun bindRecyclerView(recyclerView: RecyclerView, listOfFish: List<Fish>?) {
-//    val adapter = recyclerView.adapter as FishRecyclerAdapter
-//    adapter.submitList(listOfFish)
-//}
 class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapter, RecyclerView.Adapter<AlarmListRecyclerAdapter.AlarmItemViewHolder>() {
 
     // Viewholders aren't views.  You are redirecting the view being passed in to register the onClick
@@ -26,14 +21,13 @@ class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapt
     // you can route the onclicklistener from the view to the viewholder in the init.
 
     var alarms: MutableList<Alarm> = mutableListOf()
-
     val alarmRemovedLiveData = MutableLiveData<Alarm>()
 
     class AlarmItemViewHolder(private var view: View) : RecyclerView.ViewHolder(view), OnClickListener {
         val textView: TextView
 
         init {
-            textView = view.findViewById(R.id.alarm_time)
+            textView = view.findViewById(R.id.sleep_start_time)
             textView.setOnClickListener(this)
         }
 

@@ -27,6 +27,9 @@ class AlarmListViewModel(
     var alarmList =
         mutableListOf<Alarm>()  // This is the source of truth since it updates the database by being added to the LiveData list.
 
+    var minute = MutableLiveData<Int>()
+    var hour = MutableLiveData<Int>()
+
     private val _text = MutableLiveData<String>().apply {
         value = "This is the Alarm List"
     }

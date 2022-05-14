@@ -7,10 +7,13 @@
     <string name="monday_shorthand">M</string>
     <string name="tuesday_shorthand">T</string>
     <string name="wednesday_shorthand">W</string>
-    <string name="thursday_shorthand">TH</string>
+    <string name="thursday_shorthand">T</string>
     <string name="friday_shorthand">F</string>
     <string name="saturday_shorthand">S</string>
-    <string name="sunday_shorthand">SUN</string>
+    <string name="sunday_shorthand">S</string>
     <string name="every_day">Every Day</string>
     <string name="alarm_type">Alarm Type</string>
+    <string name="sound">Sound</string>
+    <string name="vibration">Vibration</string>
+    <string name="dummy_hours_of_sleep">7 hours of sleep</string>
 </resources>

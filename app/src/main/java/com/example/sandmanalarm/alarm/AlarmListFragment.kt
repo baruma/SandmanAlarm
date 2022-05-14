@@ -3,6 +3,7 @@ package com.example.sandmanalarm.alarm
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,24 +50,22 @@ class AlarmListFragment : Fragment() {
         loadAlarms()
         setUpSwipeToDelete()
 
-        // Observers
+        // Observer
         val newAlarmObserver = Observer<Alarm> { alarm ->
+            // Code to update the UI
             recyclerAdapter.addNewAlarm(alarm)
         }
-
-        // Observer Connections to ViewModel
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.newAlarmLiveData.observe(viewLifecycleOwner, newAlarmObserver)
 
         val alarmRemovedListener = Observer<Alarm> { alarm ->
             deleteAlarm(alarm)
         }
-
         recyclerAdapter.alarmRemovedLiveData.observe(viewLifecycleOwner, alarmRemovedListener)
 
         val loadAlarmListener = Observer<List<Alarm>> { alarms ->
             recyclerAdapter.updateAlarms(alarms)
         }
-
         viewModel.alarmLiveDataList.observe(viewLifecycleOwner, loadAlarmListener)
 
         return root
@@ -105,12 +104,17 @@ class AlarmListFragment : Fragment() {
         viewModel.loadAlarms()
     }
 
-    fun popTimePicker(view: View?) {
+    private fun popTimePicker(view: View?) {
         val onTimeSetListener =
             OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                hour = selectedHour
-                minute = selectedMinute
+               // val alarmOnCreate = Alarm(IdGenerator.create(), )
+
+               // viewModel.saveAlarm()
+
+//                hour = selectedHour
+//                minute = selectedMinute
                // timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute))
+
             }
 
         // int style = AlertDialog.THEME_HOLO_DARK;
@@ -118,5 +122,7 @@ class AlarmListFragment : Fragment() {
             TimePickerDialog(context,  /*style,*/onTimeSetListener, hour, minute, true)
         timePickerDialog.setTitle("Select Time")
         timePickerDialog.show()
+
+
     }
 }
