@@ -9,22 +9,4 @@ enum class Day(val dayOfWeek: Int) {
     SATURDAY(5),
     SUNDAY(6),
     ALL(7);
-
-//    companion object {
-//        fun map(dayOfWeek: Int): Day {
-//            return values()[dayOfWeek]
-//        }
-//
-//        // Hardcoded for now.
-//        // TODO: Must amend later.
-//        @TypeConverter
-//        fun mapFromDay(dayOfWeek: Int): Day {
-//            return MONDAY
-//        }
-//
-//        @TypeConverter
-//        fun mapToDay(day: Day): Int {
-//            return 0
-//        }
-//    }
 }

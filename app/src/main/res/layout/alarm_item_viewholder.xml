@@ -22,7 +22,6 @@
             app:layout_constraintBottom_toTopOf="@id/time_linear_layout"
             android:layout_margin="10dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-
             />
 
         <Switch
@@ -48,7 +47,7 @@
             android:layout_height="70dp"
             android:fontFamily="sans-serif-medium"
             android:padding="10dp"
-            android:textAlignment="textStart"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textSize="40sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -62,7 +61,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
             android:padding="10dp"
-            android:textAlignment="textStart"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textSize="40sp"
             app:layout_constraintTop_toTopOf="parent"

@@ -3,7 +3,6 @@ package com.example.sandmanalarm.alarm
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,8 +84,8 @@ class AlarmListFragment : Fragment() {
         _binding = null
     }
 
-    private fun addAlarm() {
-        viewModel.saveAlarm(Alarm(IdGenerator.create(), 0.0f, 3, Day.MONDAY, false, false, false))
+    private fun addAlarm(targetHour: Int, targetMinute: Int) {
+        viewModel.saveAlarm(Alarm(IdGenerator.create(), targetHour, targetMinute, Day.MONDAY, false, false, false))
     }
 
     private fun deleteAlarm(alarm: Alarm) {
@@ -107,22 +106,13 @@ class AlarmListFragment : Fragment() {
     private fun popTimePicker(view: View?) {
         val onTimeSetListener =
             OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-               // val alarmOnCreate = Alarm(IdGenerator.create(), )
-
-               // viewModel.saveAlarm()
-
-//                hour = selectedHour
-//                minute = selectedMinute
-               // timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute))
-
+                addAlarm(selectedHour, selectedMinute)
             }
 
-        // int style = AlertDialog.THEME_HOLO_DARK;
         val timePickerDialog =
             TimePickerDialog(context,  /*style,*/onTimeSetListener, hour, minute, true)
         timePickerDialog.setTitle("Select Time")
         timePickerDialog.show()
-
-
     }
+
 }

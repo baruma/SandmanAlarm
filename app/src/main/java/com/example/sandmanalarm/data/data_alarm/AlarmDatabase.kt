@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.sandmanalarm.data.data_alarm.entities.AlarmEntity
 
-@Database(entities = [AlarmEntity :: class], version = 2, exportSchema = false)
+@Database(entities = [AlarmEntity :: class], version = 3, exportSchema = false)
 @TypeConverters(Mapper::class)
 abstract class AlarmDatabase: RoomDatabase() {
 
