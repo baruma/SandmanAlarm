@@ -48,6 +48,22 @@ class AlarmListViewModel(
         }
     }
 
+    fun editAlarm(alarm: Alarm) {
+        viewModelScope.launch(dispatcher) {
+            repository.saveAlarm(alarm.asDatabaseModel())
+            var index = 0
+            for(indexedAlarm in alarmList) {
+                if(indexedAlarm.id == alarm.id) {
+                    break
+                }
+                index++
+            }
+
+            alarmList[index] = alarm
+            alarmLiveDataList.postValue(alarmList)
+        }
+    }
+
     fun deleteAlarm(alarm: Alarm) {
         viewModelScope.launch(dispatcher) {
 //            database.alarmDAO.delete(alarm.asDatabaseModel())

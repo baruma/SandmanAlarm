@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.sandmanalarm"
-        minSdk 22
+        minSdk 23
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -39,7 +39,7 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
@@ -49,7 +49,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    // Koin
     //Koin
     implementation "io.insert-koin:koin-android:3.2.0-beta-1"
     // Java Compatibility
@@ -59,8 +58,6 @@ dependencies {
     // Jetpack Compose
     implementation "io.insert-koin:koin-androidx-compose:3.2.0-beta-1"
 
-//    implementation "org.koin:koin-android-architecture:3.2.0-beta-1"
-
     // Room
     implementation("androidx.room:room-runtime:2.4.2")
     implementation "androidx.room:room-ktx:2.4.2"
@@ -68,5 +65,10 @@ dependencies {
 
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:2.4.2")
+
+    // Swipe to Refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
 
 }

@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sandmanalarm.EventBus
+import com.example.sandmanalarm.MinuteTickEvent
 import com.example.sandmanalarm.R
 import com.example.sandmanalarm.data.data_alarm.domainModels.Alarm
 import com.example.sandmanalarm.databinding.AlarmItemViewholderBinding
@@ -21,6 +23,12 @@ class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapt
     var alarms: MutableList<Alarm> = mutableListOf()
     val alarmRemovedLiveData = MutableLiveData<Alarm>()
 
+    init {
+//        EventBus.observeEvent(MinuteTickEvent::class.java)
+//            .subscribe({
+//                notifyDataSetChanged()
+//            }, { })
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlarmItemViewHolder {
 //        val view = LayoutInflater.from(viewGroup.context)
@@ -35,6 +43,7 @@ class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapt
     /* To update the recycler and add a new alarm, this is the code that will be called again by the
     "notifyItemInserted" to go through adapter code again and make change as necessary.
      */
+
     override fun onBindViewHolder(holder: AlarmItemViewHolder, position: Int) {
         val alarm = alarms.get(position)
         holder.bind(alarm)

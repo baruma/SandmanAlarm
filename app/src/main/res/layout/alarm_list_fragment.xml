@@ -39,5 +39,13 @@
 <!--        android:layout_marginTop="20dp"-->
 <!--        android:timePickerMode="clock"/>-->
 
+<!--    <include-->
+<!--        android:id="@+id/dayOfWeekRoot"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_width="48dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        layout="@layout/layout_day_of_week_toggle"/>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
