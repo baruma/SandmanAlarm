@@ -1,7 +1,6 @@
 package com.example.sandmanalarm.alarm
 
 import android.util.Log
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandmanalarm.EditAlertEvent
 import com.example.sandmanalarm.EventBus
@@ -14,37 +13,32 @@ import java.util.*
 class AlarmItemViewHolder(private val binding: AlarmItemViewholderBinding) : RecyclerView.ViewHolder(binding.root) {
 
     var calendar = Calendar.getInstance()
+    var currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+    var currentMinute = calendar.get(Calendar.MINUTE)
 
-    var hour = calendar.get(Calendar.HOUR_OF_DAY)
-    var minute = calendar.get(Calendar.MINUTE)
+    val formatter = SimpleDateFormat("HH:mm")
 
-    val formatter = SimpleDateFormat("HH:mm");
     init {
         EventBus.observeEvent(MinuteTickEvent::class.java)
             .subscribe({
-                     // update the minute
                 calendar = Calendar.getInstance()
-                hour = calendar.get(Calendar.HOUR_OF_DAY)
-                minute = calendar.get(Calendar.MINUTE)
-                binding.sleepStartTime.text = "${hour} : ${minute}"
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+                currentMinute = calendar.get(Calendar.MINUTE)
+                binding.sleepStartTime.text = "${currentHour} : ${currentMinute}"
             }, {
                 Log.d("Error", "Error", it)
             })
     }
 
-    // to show current time
-    // calendar class
-    //SimpleDateFormat class
     fun bind(alarm: Alarm) {
         val expanded: Boolean = alarm.isExpanded
         calendar = Calendar.getInstance()
 
-//        val displayTime = formatter.parse(calendar.time)
+        val alarmStartDisplayTime = String.format("%02d : %02d", currentHour, currentMinute)
+        binding.sleepStartTime.text = alarmStartDisplayTime
 
-        binding.sleepStartTime.text = "${hour} : ${minute}"
-
-        val displayTime = String.format("%02d : %02d", alarm.targetHour, alarm.targetMinute)
-        binding.sleepEndTime.text = displayTime
+        val alarmEndDisplayTime = String.format("%02d : %02d", alarm.targetHour, alarm.targetMinute)
+        binding.sleepEndTime.text = alarmEndDisplayTime
         // Old school way of doing things
 //        view.findViewById<View>(R.id.week_linear_layout).visibility = (if (expanded) View.VISIBLE else View.GONE)
 
@@ -52,8 +46,6 @@ class AlarmItemViewHolder(private val binding: AlarmItemViewholderBinding) : Rec
             EventBus.postEvent(EditAlertEvent(alarm))
         }
     }
-
-
 }
 
 /*

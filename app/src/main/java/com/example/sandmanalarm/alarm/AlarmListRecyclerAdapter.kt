@@ -24,19 +24,14 @@ class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapt
     val alarmRemovedLiveData = MutableLiveData<Alarm>()
 
     init {
-//        EventBus.observeEvent(MinuteTickEvent::class.java)
-//            .subscribe({
-//                notifyDataSetChanged()
-//            }, { })
+        EventBus.observeEvent(MinuteTickEvent::class.java)
+            .subscribe({
+                notifyDataSetChanged()
+            }, { })
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlarmItemViewHolder {
-//        val view = LayoutInflater.from(viewGroup.context)
-//            .inflate(R.layout.alarm_item_viewholder, viewGroup, false)
-
-
         val binding = AlarmItemViewholderBinding.inflate(LayoutInflater.from(viewGroup.context))
-
         return AlarmItemViewHolder(binding)
     }
 

@@ -15,27 +15,18 @@ import com.example.sandmanalarm.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val receiver: Receiver = Receiver()
 
-    class Receiver : BroadcastReceiver() {
+
+    private lateinit var _alarmScheduler: AlarmScheduler
+
+    class MinuteTickReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             EventBus.postEvent(MinuteTickEvent)
             Log.d("wtf", "Broadcast Hit")
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val filter = IntentFilter(Intent.ACTION_TIME_TICK)
-        registerReceiver(receiver, filter)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        unregisterReceiver(receiver)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        registerReceiver(MinuteTickReceiver(), IntentFilter(IntentFilter(Intent.ACTION_TIME_TICK)))
+
+        _alarmScheduler = AlarmScheduler(this)
 
         val navView: BottomNavigationView = binding.navView
 
@@ -59,6 +54,32 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        _alarmScheduler.scheduleExact5SFromNow()
+
     }
+
+    // Get AlarmManager instance
+//    val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+//    // Intent
+//    val intent = Intent(this, AlarmBroadcastReceiver::class.java)
+//    intent.action = "FOO_ACTION"
+//    intent.putExtra("KEY_FOO_STRING", "Medium AlarmManager Demo")
+//
+//    val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+//
+//    // Alarm time
+//    val ALARM_DELAY_IN_SECOND = 10
+//    val alarmTimeAtUTC = System.currentTimeMillis() + ALARM_DELAY_IN_SECOND * 1_000L
+//
+//    // Set with system Alarm Service
+//    // Other possible functions: setExact() / setRepeating() / setWindow(), etc
+//    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTimeAtUTC, pendingIntent)
+//
+//
+//    val pendingIntentRequestCode = 0
+//    val flag = 0
+//    val pendingIntent = PendingIntent.getBroadcast(this, pendingIntentRequestCode, intent, flag)
 
 }

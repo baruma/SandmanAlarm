@@ -9,6 +9,5 @@ data class TimerEntity (
     val id: Long,
     val time: Long,
     val running: Boolean,
-//    val alertMethod: AlertMethod,
     val timeRemaining: Long
 )

@@ -27,5 +27,6 @@ class SandmanApp : Application() {
         viewModel { AlarmListViewModel(get(), Dispatchers.IO) }
         single { AlarmDatabase.getDatabase(this@SandmanApp) }
         single { AlarmRepository(get()) }
+//        single { SandmanAlarmManager(get()) }
     }
 }

@@ -47,6 +47,7 @@ class AlarmListFragment : Fragment() {
         val root: View = binding.root
 
         // This is code for a custom toggle button with a Boolean requirement.  Radio buttons do not have this.
+
 //        var isOn = true
 //        binding.dayOfWeekRoot.dayOfWeekLabel.setOnClickListener {
 //            val textView = it as TextView
@@ -122,15 +123,15 @@ class AlarmListFragment : Fragment() {
         viewModel.deleteAlarm(alarm)
     }
 
+    private fun loadAlarms() {
+        viewModel.loadAlarms()
+    }
+
     private fun setUpSwipeToDelete() {
         binding.alertsRecyclerView.adapter = recyclerAdapter
         val callback: ItemTouchHelper.Callback = SwipeHelperCallback(recyclerAdapter)
         mItemTouchHelper = ItemTouchHelper(callback)
         mItemTouchHelper?.attachToRecyclerView(binding.alertsRecyclerView)
-    }
-
-    private fun loadAlarms() {
-        viewModel.loadAlarms()
     }
 
     private fun popTimePicker(view: View?) {
@@ -156,4 +157,12 @@ class AlarmListFragment : Fragment() {
         timePickerDialog.setTitle("Select Time")
         timePickerDialog.show()
     }
+
+    private fun callAlarmSchedule() {
+        /*
+        Pass in times to AlarmScheduler
+         */
+
+    }
+
 }
