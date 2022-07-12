@@ -5,13 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.sandmanalarm.data.ScheduleDAO
 import com.example.sandmanalarm.data.data_alarm.entities.AlarmEntity
+import com.example.sandmanalarm.data.schedule.ScheduleEntity
 
-@Database(entities = [AlarmEntity :: class], version = 3, exportSchema = false)
+@Database(entities = [AlarmEntity :: class, ScheduleEntity::class], version = 4, exportSchema = false)
 @TypeConverters(Mapper::class)
 abstract class AlarmDatabase: RoomDatabase() {
 
     abstract val alarmDAO: AlarmDAO
+    abstract val scheduleDAO: ScheduleDAO
 
     // allows clients to access the methods without having to instantiate the class
     companion object {

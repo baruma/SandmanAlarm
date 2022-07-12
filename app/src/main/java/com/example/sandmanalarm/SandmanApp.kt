@@ -26,7 +26,8 @@ class SandmanApp : Application() {
     val mainModule = module {
         viewModel { AlarmListViewModel(get(), Dispatchers.IO) }
         single { AlarmDatabase.getDatabase(this@SandmanApp) }
+//        single { AlarmDatabase.getDatabase(get()) }
         single { AlarmRepository(get()) }
-//        single { SandmanAlarmManager(get()) }
+        single { AlarmScheduler(applicationContext, get()) }
     }
 }

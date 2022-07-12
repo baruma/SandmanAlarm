@@ -11,20 +11,24 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.sandmanalarm.data.data_alarm.AlarmDatabase
+import com.example.sandmanalarm.data.data_alarm.AlarmRepository
+import com.example.sandmanalarm.data.data_alarm.domainModels.Alarm
 import com.example.sandmanalarm.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.android.ext.android.inject
 
 
-class MainActivity: AppCompatActivity() {
+class MainActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-
-    private lateinit var _alarmScheduler: AlarmScheduler
+    private val scheduler: AlarmScheduler by inject()
+    private val repository: AlarmRepository by inject()
 
     class MinuteTickReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            EventBus.postEvent(MinuteTickEvent)
+            EventBus.publishEvent(MinuteTickEvent)
             Log.d("wtf", "Broadcast Hit")
         }
     }
@@ -37,7 +41,7 @@ class MainActivity: AppCompatActivity() {
 
         registerReceiver(MinuteTickReceiver(), IntentFilter(IntentFilter(Intent.ACTION_TIME_TICK)))
 
-        _alarmScheduler = AlarmScheduler(this)
+//        alarmScheduler = AlarmScheduler(this, repository)
 
         val navView: BottomNavigationView = binding.navView
 
@@ -55,31 +59,18 @@ class MainActivity: AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        _alarmScheduler.scheduleExact5SFromNow()
-
+        callAlarmScheduler()
     }
 
-    // Get AlarmManager instance
-//    val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    /*
+    Originally I intended to compare alarmStart and alarmEnd strings to each other to determine whether or not
+    to trigger an Alarm.  Instead, I have chosen to compare number to number instead.
 
-//    // Intent
-//    val intent = Intent(this, AlarmBroadcastReceiver::class.java)
-//    intent.action = "FOO_ACTION"
-//    intent.putExtra("KEY_FOO_STRING", "Medium AlarmManager Demo")
-//
-//    val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
-//
-//    // Alarm time
-//    val ALARM_DELAY_IN_SECOND = 10
-//    val alarmTimeAtUTC = System.currentTimeMillis() + ALARM_DELAY_IN_SECOND * 1_000L
-//
-//    // Set with system Alarm Service
-//    // Other possible functions: setExact() / setRepeating() / setWindow(), etc
-//    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTimeAtUTC, pendingIntent)
-//
-//
-//    val pendingIntentRequestCode = 0
-//    val flag = 0
-//    val pendingIntent = PendingIntent.getBroadcast(this, pendingIntentRequestCode, intent, flag)
+    Comparing string to string may be more volatile.
+     */
 
+    fun callAlarmScheduler() {
+        scheduler.scheduleExact5SFromNow()
+
+    }
 }

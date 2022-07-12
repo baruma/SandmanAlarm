@@ -21,6 +21,9 @@ class AlarmListViewModel(
 
      Livedata is strictly used between viewModel and View.
      */
+
+    // add scheduler in edit and save alarm func
+
     var alarmLiveDataList = MutableLiveData<List<Alarm>>()
     var newAlarmLiveData = MutableLiveData<Alarm>()
 
@@ -81,3 +84,14 @@ class AlarmListViewModel(
         }
     }
 }
+
+/*
+NOTE: Wednesday, 5/18
+
+The primary source of truth is in the database.  That is why we're calling the scheduling code here in the viewmodel
+where it has access to the add and edit functions.
+
+However, we need something that tracks the schedules - because what if an alarm is updated or edited.
+
+Look into creating an object for schedules or learn to  cancel scheduling based on flags.
+ */

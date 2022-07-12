@@ -21,8 +21,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toTopOf="@id/time_linear_layout"
             android:layout_margin="10dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-            />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
         <Switch
             android:id="@+id/alarm_switch"

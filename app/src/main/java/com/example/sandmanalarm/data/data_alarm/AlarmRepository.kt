@@ -1,6 +1,7 @@
 package com.example.sandmanalarm.data.data_alarm
 
 import com.example.sandmanalarm.data.data_alarm.entities.AlarmEntity
+import com.example.sandmanalarm.data.schedule.ScheduleEntity
 
 class AlarmRepository (private val database: AlarmDatabase) {
     /*  The repository is kind of like a catch-all.  It implements all the parts of the database that
@@ -23,6 +24,14 @@ class AlarmRepository (private val database: AlarmDatabase) {
 
     suspend fun deleteAlarm(alarm: AlarmEntity) {
         return database.alarmDAO.delete(alarm)
+    }
+
+    suspend fun saveSchedule(schedule: ScheduleEntity) {
+        return database.scheduleDAO.insert(schedule)
+    }
+
+    suspend fun deleteSchedule(schedule: ScheduleEntity) {
+        return database.scheduleDAO.delete(schedule)
     }
 
 }

@@ -7,19 +7,25 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
-import android.media.RingtoneManager
-import android.net.Uri
+import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.sandmanalarm.data.data_alarm.AlarmRepository
+import com.example.sandmanalarm.data.schedule.ScheduleEntity
 import java.util.*
 
+/*
+    I'm going to write in the Schedule Save code in here, but it may have to go in the BroadcastReceiver.
+ */
 
-class AlarmScheduler(val context: Context) {
+class AlarmScheduler(val context: Context, val repository: AlarmRepository) {
+
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
     private lateinit var alarmIntent: PendingIntent
-    val mediaPlayer = MediaPlayer()
 
-    // This might have to go to the AlarmBroadcastReceiver
+
+//    val repository: AlarmRepository = AlarmRepository(database)
+
     init {
         val receiver = ComponentName(context, AlarmBroadcastReceiver::class.java)
 
@@ -30,20 +36,52 @@ class AlarmScheduler(val context: Context) {
         )
     }
 
+    suspend fun scheduleAlarm() {
+        val calendar: Calendar = Calendar.getInstance().apply {
+            add(Calendar.SECOND, 1)
+        }
+
+        val alarmInMillis = calendar.timeInMillis
+        val requestCode: Int = Random().nextInt(9999)
+        val alarmIntent = Intent(context, AlarmBroadcastReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, alarmIntent, PendingIntent.FLAG_MUTABLE)
+
+        alarmManager?.set(AlarmManager.RTC_WAKEUP, alarmInMillis, pendingIntent)
+
+        // TODO: Save Schedule to database
+        // TODO: Retrieve alarm for newly created cases and for when user makes changes to current ones.
+        val alarm = repository.loadAlarms()[8]
+        repository.saveSchedule(ScheduleEntity(requestCode, alarmIntent.flags.toString(), alarm.id))
+    }
+
     fun scheduleExact5SFromNow() {
         // Set the alarm to start at 8:30 a.m.
         val calendar: Calendar = Calendar.getInstance().apply {
-            add(Calendar.SECOND, 5)
+            add(Calendar.SECOND, 1)
         }
 
         val alarmMillis = calendar.timeInMillis
 
-        val alarmIntent = Intent(context, AlarmBroadcastReceiver::class.java).let { intent ->
-            PendingIntent.getBroadcast(context, 54321, intent, PendingIntent.FLAG_MUTABLE)}
+        val alarmIntent = Intent(context, AlarmBroadcastReceiver::class.java)
+        val alarmBundle = Bundle()
+        alarmBundle.putInt("hour", 5)
+        alarmBundle.putInt("minute", 30)
+        val requestCode = 343
+        alarmBundle.putInt("request_code", requestCode)
 
-        alarmManager?.set(AlarmManager.RTC_WAKEUP, alarmMillis, alarmIntent)
+        alarmIntent.putExtras(alarmBundle)
+
+
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, alarmIntent, PendingIntent.FLAG_MUTABLE)
+
+        alarmManager?.set(AlarmManager.RTC_WAKEUP, alarmMillis, pendingIntent)
+        Log.d("intent", alarmIntent.toString())
+
         Log.d("screaming", "Scheduled alarm")
-        Toast.makeText(context, "I AM Schedule TOAST", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "I AM Schedule TOAST", Toast.LENGTH_SHORT).show()
+
+//        repository.saveSchedule(ScheduleEntity(pendingIntent.))
+//        repository.saveSchedule(ScheduleEntity(123, alarmIntent.flag, alarmIntent.creatorUid,))
 
     }
 

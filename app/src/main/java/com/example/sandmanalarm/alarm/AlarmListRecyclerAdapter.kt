@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandmanalarm.EventBus
 import com.example.sandmanalarm.MinuteTickEvent
-import com.example.sandmanalarm.R
 import com.example.sandmanalarm.data.data_alarm.domainModels.Alarm
 import com.example.sandmanalarm.databinding.AlarmItemViewholderBinding
 
@@ -14,7 +13,7 @@ import com.example.sandmanalarm.databinding.AlarmItemViewholderBinding
 // TODO: Continue off of this tutorial for collapsible cell:
 //  https://medium.com/@nikola.jakshic/how-to-expand-collapse-items-in-recyclerview-49a648a403a6
 
-class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapter, RecyclerView.Adapter<AlarmItemViewHolder>() {
+class AlarmListRecyclerAdapter(val onSwiped : () -> Unit): ItemTouchHelperAdapter, RecyclerView.Adapter<AlarmItemViewHolder>() {
 
     // Viewholders aren't views.  You are redirecting the view being passed in to register the onClick
     // the viewholder will always have a view since it's declared with a constructor that has a view
@@ -24,7 +23,7 @@ class AlarmListRecyclerAdapter(val onSwiped : () -> Unit) : ItemTouchHelperAdapt
     val alarmRemovedLiveData = MutableLiveData<Alarm>()
 
     init {
-        EventBus.observeEvent(MinuteTickEvent::class.java)
+        EventBus.subscribeToEvent(MinuteTickEvent::class.java)
             .subscribe({
                 notifyDataSetChanged()
             }, { })

@@ -36,8 +36,13 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 //            mediaPlayer.isLooping = true
 //        }
 
-        Log.d("screaming", "Alarm received")
-        Toast.makeText(context, "I AM BROADCST TOAST", Toast.LENGTH_LONG).show()
+        Log.d("screaming", "Got an alarm")
+        val hour = intent.getIntExtra("hour", 0)
+        val minute = intent.getIntExtra("minute", 0)
+        val requestCode = intent.getIntExtra("request_code", 0)
+
+        Log.d("screaming", "Got an alarm for $hour $minute")
+        Toast.makeText(context, "I AM Broadcast TOAST", Toast.LENGTH_SHORT).show()
     }
 
 //    fun onPause() {

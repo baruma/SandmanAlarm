@@ -16,10 +16,15 @@ class AlarmItemViewHolder(private val binding: AlarmItemViewholderBinding) : Rec
     var currentHour = calendar.get(Calendar.HOUR_OF_DAY)
     var currentMinute = calendar.get(Calendar.MINUTE)
 
+    var alarmStartDisplayTime = String()
+    var alarmEndDisplayTime = String()
+
     val formatter = SimpleDateFormat("HH:mm")
 
+//    val alarmScheduler = AlarmScheduler(binding.root.context)
+
     init {
-        EventBus.observeEvent(MinuteTickEvent::class.java)
+        EventBus.subscribeToEvent(MinuteTickEvent::class.java)
             .subscribe({
                 calendar = Calendar.getInstance()
                 currentHour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -28,22 +33,31 @@ class AlarmItemViewHolder(private val binding: AlarmItemViewholderBinding) : Rec
             }, {
                 Log.d("Error", "Error", it)
             })
+
     }
 
     fun bind(alarm: Alarm) {
         val expanded: Boolean = alarm.isExpanded
         calendar = Calendar.getInstance()
 
-        val alarmStartDisplayTime = String.format("%02d : %02d", currentHour, currentMinute)
+        alarmStartDisplayTime = String.format("%02d : %02d", currentHour, currentMinute)
         binding.sleepStartTime.text = alarmStartDisplayTime
 
-        val alarmEndDisplayTime = String.format("%02d : %02d", alarm.targetHour, alarm.targetMinute)
+        alarmEndDisplayTime = String.format("%02d : %02d", alarm.targetHour, alarm.targetMinute)
         binding.sleepEndTime.text = alarmEndDisplayTime
         // Old school way of doing things
 //        view.findViewById<View>(R.id.week_linear_layout).visibility = (if (expanded) View.VISIBLE else View.GONE)
 
         binding.sleepEndTime.setOnClickListener{
-            EventBus.postEvent(EditAlertEvent(alarm))
+            EventBus.publishEvent(EditAlertEvent(alarm))
+        }
+    }
+
+    // Doing this is a bad idea - Not every viewholder needs an alarm scheduler
+    fun callScheduler() {
+        // Maybe do this in the EditAlertEvent instead
+        if (alarmStartDisplayTime == alarmEndDisplayTime) {
+//            alarmScheduler.scheduleExact5SFromNow()
         }
     }
 }
